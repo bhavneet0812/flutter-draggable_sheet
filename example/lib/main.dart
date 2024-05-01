@@ -56,40 +56,44 @@ class _HomePageState extends State<HomePage> {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        label: Padding(
-                          padding: EdgeInsets.all(16),
-                          child: Text("Enter the number of cards"),
+                    child: SizedBox(
+                      height: 100,
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                          label: Padding(
+                            padding: EdgeInsets.all(0),
+                            child: Text("Enter the number of cards"),
+                          ),
+                          labelStyle: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                            // height: 0,
+                          ),
+                          floatingLabelAlignment: FloatingLabelAlignment.start,
                         ),
-                        labelStyle: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                          height: 2,
-                        ),
-                        floatingLabelAlignment: FloatingLabelAlignment.center,
-                      ),
-                      textInputAction: TextInputAction.done,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
-                      ],
-                      onTapOutside: (event) {
-                        FocusScope.of(context).unfocus();
-                      },
-                      onChanged: (value) {
-                        final intValue = int.tryParse(value) ?? 1;
-                        setState(() {
-                          list = List.generate(intValue, (index) {
-                            return (
-                              Colors.primaries[
-                                      Random().nextInt(Colors.primaries.length)]
-                                  .withOpacity(1),
-                              index
-                            );
+                        textInputAction: TextInputAction.done,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        textAlign: TextAlign.start,
+                        onTapOutside: (event) {
+                          FocusScope.of(context).unfocus();
+                        },
+                        onChanged: (value) {
+                          final intValue = int.tryParse(value) ?? 1;
+                          setState(() {
+                            list = List.generate(intValue, (index) {
+                              return (
+                                Colors.primaries[Random()
+                                        .nextInt(Colors.primaries.length)]
+                                    .withOpacity(1),
+                                index
+                              );
+                            });
                           });
-                        });
-                      },
+                        },
+                      ),
                     ),
                   ),
                 )

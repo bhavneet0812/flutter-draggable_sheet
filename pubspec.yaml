@@ -1,5 +1,5 @@
 name: draggable_sheet
-description: "A new Flutter plugin project."
+description: "`Draggable Sheet` is a Flutter package that enables developers to implement a customizable, interactive bottom sheet with a dynamic height adjustment and an elegant item display. It extends typical draggable sheet functionalities with more sophisticated control over its behavior, providing a richer user interaction."
 version: 1.0.0
 repository: https://github.com/bhavneet0812/flutter-draggable_sheet
 

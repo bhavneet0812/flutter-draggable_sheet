@@ -1,30 +1,25 @@
-Certainly! Here's an example of how you could structure the GitHub documentation for a Flutter package named `Draggable Sheet`, inspired by `DraggableScrollableSheet`.
-
----
 
 # Draggable Sheet
 
-`Draggable Sheet` is a highly customizable Flutter package that allows developers to easily implement a draggable bottom sheet into their Flutter applications. Inspired by Flutter's built-in `DraggableScrollableSheet`, this package extends its capabilities with enhanced features and greater flexibility, making it ideal for creating fully responsive and interactive bottom sheets.
+`Draggable Sheet` is a Flutter package that enables developers to implement a customizable, interactive bottom sheet with a dynamic height adjustment and an elegant item display. It extends typical draggable sheet functionalities with more sophisticated control over its behavior, providing a richer user interaction.
 
 ## Features
 
-- **Customizable Max and Min Heights**: Set the maximum and minimum heights that the sheet can expand or collapse to.
-- **Scrollable Content Support**: Seamless integration with scrollable widgets like `ListView`, `GridView`, and `SingleChildScrollView`.
-- **Snapping**: Optionally enable snapping behavior at different heights.
-- **Callbacks**: Events for drag start, dragging, and drag end for better control over sheet behavior.
-- **Custom Animation Curves**: Customize the animation curve for the expanding and collapsing motions.
-- **Highly Configurable**: Extensive options to control the look and behavior of the draggable sheet.
+- **Dynamic Height Adjustment**: Adjust the bottom sheet height based on content or predefined limits.
+- **Item Interaction**: Tap items to interact or select, with the sheet responding to the context.
+- **Custom Animation and Snapping**: Smooth animations and optional snapping at different heights.
+- **Responsive Design**: Adapts to different screen sizes and orientations.
 
-## Getting Started
+## Installation
 
-To get started with `Draggable Sheet`, add the package to your Flutter project by including it in your `pubspec.yaml` file:
+To add `Draggable Sheet` to your Flutter project, edit your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
   draggable_sheet: ^1.0.0
 ```
 
-Then, import the package in your Dart file:
+Then, import the package in your Dart code:
 
 ```dart
 import 'package:draggable_sheet/draggable_sheet.dart';
@@ -32,188 +27,30 @@ import 'package:draggable_sheet/draggable_sheet.dart';
 
 ## Usage
 
-Here's a basic example of how to use `Draggable Sheet` in your application:
+This package provides a `DraggableSheet` widget that can be included in your Flutter app. Below is a simple example of how to integrate it into your app:
 
 ```dart
-import 'dart:math';
-
-import 'package:draggable_sheet/draggable_sheet.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-// import 'package:draggable_sheet/draggable_sheet.dart';
+import 'package:draggable_sheet/draggable_sheet.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(MyApp());
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  var list = List.generate(10, (index) {
-    return (
-      Colors.primaries[Random().nextInt(Colors.primaries.length)]
-          .withOpacity(1),
-      index,
-    );
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            height: 100 + kBottomNavigationBarHeight,
-            child: Row(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        label: Padding(
-                          padding: EdgeInsets.all(16),
-                          child: Text("Enter the number of cards"),
-                        ),
-                        labelStyle: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                          height: 2,
-                        ),
-                        floatingLabelAlignment: FloatingLabelAlignment.center,
-                      ),
-                      textInputAction: TextInputAction.done,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
-                      ],
-                      onTapOutside: (event) {
-                        FocusScope.of(context).unfocus();
-                      },
-                      onChanged: (value) {
-                        final intValue = int.tryParse(value) ?? 1;
-                        setState(() {
-                          list = List.generate(intValue, (index) {
-                            return (
-                              Colors.primaries[
-                                      Random().nextInt(Colors.primaries.length)]
-                                  .withOpacity(1),
-                              index
-                            );
-                          });
-                        });
-                      },
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-          Positioned.fill(
-            child: () {
-              final mediaQuery = MediaQuery.of(context);
-              final height = mediaQuery.size.height;
-              return DraggableSheet(
-                minHeight:
-                    (kBottomNavigationBarHeight * 2 + (0.25 * height)) / height,
-                maxHeight: 1,
-                itemHeight: 0.25 * height,
-                list: List.generate(list.length, (index) {
-                  return (
-                    HomeProfileItemView(
-                      index: index,
-                      itemHeight: 0.25 * height,
-                      item: list[index],
-                    ),
-                    index
-                  );
-                }),
-                didSelectItem: (index) {
-                  var tempList = List<(Color, int)>.from(list);
-                  final tempSelectedItem = tempList[index];
-                  tempList.removeAt(index);
-                  tempList.insert(tempList.length, tempSelectedItem);
-                  setState(() {
-                    list = tempList;
-                  });
-                },
-              );
-            }(),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class HomeProfileItemView extends StatefulWidget {
-  const HomeProfileItemView({
-    super.key,
-    required this.index,
-    required this.itemHeight,
-    required this.item,
-    this.onTap,
-  });
-
-  final int index;
-  final double itemHeight;
-  final (Color, int) item;
-  final void Function()? onTap;
-
-  @override
-  State<HomeProfileItemView> createState() => _HomeProfileItemViewState();
-}
-
-class _HomeProfileItemViewState extends State<HomeProfileItemView> {
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: widget.onTap,
-      child: Card(
-        color: Colors.transparent,
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: SizedBox(
-          height: widget.itemHeight,
-          child: Container(
-            decoration: BoxDecoration(
-              color: widget.item.$1,
-              borderRadius: BorderRadius.circular(15),
-            ),
-            alignment: Alignment.center,
-            child: Text(
-              widget.item.$2.toString(),
-              style: const TextStyle(
-                fontSize: 26,
-              ),
-            ),
-          ),
+    return MaterialApp(
+      home: Scaffold(
+        body: DraggableSheet(
+          minHeight: 0.1,
+          maxHeight: 0.8,
+          itemHeight: 50,
+          list: [
+            (Widget: Text('Item 1'), index: 0),
+            (Widget: Text('Item 2'), index: 1),
+          ],
+          didSelectItem: (index) {
+            print('Selected item $index');
+          },
         ),
       ),
     );
@@ -221,21 +58,22 @@ class _HomeProfileItemViewState extends State<HomeProfileItemView> {
 }
 ```
 
-## Parameters
+### Configuration
 
-- `minChildSize`: The minimum size of the sheet as a fraction of the screen height.
-- `maxChildSize`: The maximum size of the sheet as a fraction of the screen height.
-- `initialChildSize`: The initial size of the sheet when the widget is first built.
-- `builder`: A function that returns the widget displayed inside the sheet. It provides a `ScrollController` for integrating with scrollable content.
+- `minHeight`: The minimum fraction of the screen height that the draggable sheet can occupy.
+- `maxHeight`: The maximum fraction of the screen height that the draggable sheet can occupy.
+- `itemHeight`: The height of each item in the draggable sheet.
+- `list`: A list of tuples, each containing a `Widget` and its corresponding index.
+- `didSelectItem`: A callback function that is called when an item is selected.
 
 ## Contributing
 
-Contributions to `Draggable Sheet` are welcome! We accept contributions in the form of bug reports, feature requests, and pull requests. For more details, see the `CONTRIBUTING.md` file.
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 ## License
 
-`Draggable Sheet` is available under the MIT license. For more information, see the `LICENSE` file included with the package.
+Distributed under the MIT License. See `LICENSE` for more information.
 
 ---
 
-This template outlines essential sections such as features, installation, usage, and contributing guidelines. Feel free to customize the content according to the specific functionalities and scope of your package.
+This documentation includes basic sections that describe the package's functionality, how to get it set up, and how to start using it in a project. Adjustments may be necessary based on additional functionality or configurations in your package.
