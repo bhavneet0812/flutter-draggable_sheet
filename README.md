@@ -1,9 +1,9 @@
 
 # Draggable Sheet
 
-`Draggable Sheet` is a Flutter package that enables developers to implement a customizable, interactive bottom sheet with a dynamic height adjustment and an elegant item display. It extends typical draggable sheet functionalities with more sophisticated control over its behavior, providing a richer user interaction.
+`Draggable Sheet` is a Flutter package that enables developers to implement a customizable, interactive bottom sheet with a dynamic height adjustment and an elegant item display. It extends typical draggable sheet functionalities with more sophisticated control over its behaviour, providing richer user interaction.
 
-![](https://github.com/bhavneet0812/flutter-draggable_sheet/assets/DraggableSheet.gif)
+# <img src="https://github.com/bhavneet0812/flutter-draggable_sheet/blob/main/assets/DraggableSheet.gif" width="300px" />
 
 ## Features
 
@@ -70,7 +70,7 @@ class MyApp extends StatelessWidget {
 
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 ## License
 
