@@ -18,7 +18,7 @@ To add `Draggable Sheet` to your Flutter project, edit your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  draggable_sheet: ^1.0.0+2
+  draggable_sheet: ^1.0.1+1
 ```
 
 Then, import the package in your Dart code:
