@@ -1,6 +1,6 @@
 name: draggable_sheet
 description: "`Draggable Sheet` - Enhance your Flutter apps with customizable, interactive bottom sheets featuring dynamic height adjustments for superior user experiences."
-version: 1.0.1+1
+version: 1.0.1+2
 repository: https://github.com/bhavneet0812/flutter-draggable_sheet
 
 environment:
