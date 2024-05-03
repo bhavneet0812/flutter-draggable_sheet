@@ -3,7 +3,7 @@
 
 `Draggable Sheet` is a Flutter package that enables developers to implement a customizable, interactive bottom sheet with a dynamic height adjustment and an elegant item display. It extends typical draggable sheet functionalities with more sophisticated control over its behaviour, providing richer user interaction.
 
-# <img src="https://github.com/bhavneet0812/flutter-draggable_sheet/blob/main/assets/DraggableSheet.gif" width="300px" />
+# <img src="https://github.com/bhavneet0812/flutter-draggable_sheet/raw/main/assets/DraggableSheet.gif" width="300px" />
 
 ## Features
 
@@ -18,7 +18,7 @@ To add `Draggable Sheet` to your Flutter project, edit your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  draggable_sheet: ^1.0.1+2
+  draggable_sheet: ^1.0.1+3
 ```
 
 Then, import the package in your Dart code:
